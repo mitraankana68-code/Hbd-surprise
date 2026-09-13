@@ -44,7 +44,16 @@
         button:active { transform: scale(0.95); }
         .btn-no { background: #6c757d; }
         .hidden { display: none; }
-        img { width: 160px; height: 160px; object-fit: cover; border-radius: 15px; margin: 10px 0; }
+        .icon-box {
+            font-size: 80px;
+            margin: 15px 0;
+            display: inline-block;
+            animation: bounce 2s infinite ease-in-out;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
         .heart {
             position: absolute;
             color: #ff4b5c;
@@ -71,7 +80,7 @@
         <div id="page1">
             <h2>Hey Cutie Puckuuu! 🎂</h2>
             <p>I have something for you...</p>
-            <img src="https://images.unsplash.com/photo-1535268647677-300dbf3d78d1?w=400&auto=format&fit=crop" alt="Cute Animal">
+            <div class="icon-box">🎁🧸</div>
             <div class="btn-group">
                 <button onclick="showPage('page3')">YES! 🎉</button>
                 <button class="btn-no" onclick="showPage('page2')">NO 😜</button>
@@ -82,8 +91,8 @@
         <div id="page2" class="hidden">
             <h2>Why did u click no!? 🥺</h2>
             <p>That wasn't an option! Try again!</p>
-            <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&auto=format&fit=crop" alt="Sad Puppy">
-            <br><br>
+            <div class="icon-box">😿💔</div>
+            <br>
             <button onclick="showPage('page1')">TRY AGAIN 🔄</button>
         </div>
 
@@ -102,8 +111,8 @@
         <div id="page4" class="hidden">
             <h1>Happy Birthday! 🥳✨</h1>
             <p>Wishing you a day filled with love, laughter, and all your favorite sweet treats! Thank you for being such an awesome person. ❤️🎂</p>
-            <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=400&auto=format&fit=crop" alt="Celebration Party">
-            <br><br>
+            <div class="icon-box">🥳🎉🎈</div>
+            <br>
             <button onclick="showPage('page1')">Start Over 🔄</button>
         </div>
     </div>
