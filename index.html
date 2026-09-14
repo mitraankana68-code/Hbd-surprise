@@ -5,245 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Birthday Surprise!</title>
     <style>
-        * { box-sizing: border-box; }
         body { 
             font-family: 'Comic Sans MS', cursive, sans-serif; 
             text-align: center; 
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-            min-height: 100vh;
+            height: 100vh;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow-x: hidden;
+            overflow: hidden;
         }
         .card { 
             background: rgba(255, 255, 255, 0.95); 
             border-radius: 25px; 
-            padding: 25px 20px; 
-            width: 90%;
+            padding: 25px; 
+            width: 85%;
             max-width: 380px; 
             box-shadow: 0 10px 25px rgba(0,0,0,0.15); 
             position: relative;
             z-index: 10;
         }
-        h2, h1 { color: #d63384; margin-top: 0; margin-bottom: 10px; font-size: 22px; }
-        h1 { font-size: 24px; }
-        p { color: #555; font-size: 15px; line-height: 1.4; margin-bottom: 15px; }
-        .btn-group { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
+        h2, h1 { color: #d63384; margin-bottom: 15px; }
+        p { color: #555; font-size: 16px; line-height: 1.5; }
+        .btn-group { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
         button { 
             background: linear-gradient(45deg, #ff4b5c, #ff758c); 
             color: white; 
             border: none; 
-            padding: 12px 20px; 
+            padding: 12px 24px; 
             border-radius: 20px; 
-            font-size: 15px; 
+            font-size: 16px; 
             font-weight: bold;
             cursor: pointer; 
             box-shadow: 0 4px 10px rgba(255, 75, 92, 0.3);
             transition: transform 0.2s ease;
         }
         button:active { transform: scale(0.95); }
-        .btn-no { background: #6c757d; box-shadow: none; }
+        .btn-no { background: #6c757d; }
         .hidden { display: none; }
-        
-        /* Floating background hearts */
+        img { width: 170px; height: 170px; object-fit: contain; border-radius: 15px; margin: 10px 0; }
         .heart {
             position: absolute;
             color: #ff4b5c;
             font-size: 20px;
             animation: float 4s linear infinite;
             opacity: 0.7;
-            pointer-events: none;
         }
         @keyframes float {
             0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
             100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
-
-        /* SVG Character Animations */
-        .svg-container {
-            width: 180px;
-            height: 160px;
-            margin: 10px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        /* Page 1 Bubu Gift Bounce */
-        .gift-bounce { animation: bounce 1.8s ease-in-out infinite; transform-origin: center bottom; }
-        .heart-pulse { animation: pulse 1.2s ease-in-out infinite; transform-origin: center; }
-        
-        /* Page 2 Bubu Beating Dudu */
-        .bubu-arm-beat { animation: hammerBeat 0.4s ease-in-out infinite alternate; transform-origin: 100px 75px; }
-        .dudu-shake { animation: headShake 0.4s ease-in-out infinite alternate; transform-origin: 140px 95px; }
-        
-        /* Page 3 Bubu Kissing Dudu */
-        .bubu-kiss-lean { animation: kissLean 1.2s ease-in-out infinite alternate; transform-origin: 75px 110px; }
-        .kiss-heart-float { animation: kissHeart 1.2s ease-out infinite; }
-        
-        /* Page 4 Bubu Dudu Hug */
-        .hug-sway { animation: hugSway 2s ease-in-out infinite alternate; transform-origin: center bottom; }
-
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-        @keyframes hammerBeat { 0% { transform: rotate(0deg); } 100% { transform: rotate(-35deg); } }
-        @keyframes headShake { 0% { transform: translate(0, 0) rotate(0deg); } 100% { transform: translate(3px, 4px) rotate(8deg); } }
-        @keyframes kissLean { 0% { transform: translateX(0); } 100% { transform: translateX(6px); } }
-        @keyframes kissHeart { 0% { transform: translate(0, 0) scale(0.6); opacity: 0; } 50% { opacity: 1; } 100% { transform: translate(12px, -20px) scale(1.2); opacity: 0; } }
-        @keyframes hugSway { 0% { transform: rotate(-3deg); } 100% { transform: rotate(3deg); } }
     </style>
 </head>
 <body>
 
+    <!-- Floating Background Hearts -->
     <div class="heart" style="left: 10%; animation-duration: 5s;">❤️</div>
     <div class="heart" style="left: 30%; animation-duration: 4s;">✨</div>
     <div class="heart" style="left: 70%; animation-duration: 6s;">💖</div>
     <div class="heart" style="left: 85%; animation-duration: 3.5s;">🎉</div>
 
     <div class="card">
+        <!-- Page 1: Intro / Present -->
         <div id="page1">
             <h2>Hey Cutie Puckuuu! 🎂</h2>
             <p>I have something for you...</p>
-            
-            <div class="svg-container gift-bounce">
-                <svg width="170" height="150" viewBox="0 0 170 150">
-                    <ellipse cx="85" cy="100" rx="38" ry="32" fill="#E8B088" />
-                    <circle cx="85" cy="70" r="32" fill="#E8B088" />
-                    <circle cx="60" cy="48" r="10" fill="#E8B088" />
-                    <circle cx="60" cy="48" r="5" fill="#FAD0C4" />
-                    <circle cx="110" cy="48" r="10" fill="#E8B088" />
-                    <circle cx="110" cy="48" r="5" fill="#FAD0C4" />
-                    <ellipse cx="85" cy="74" rx="10" ry="7" fill="#FFF" />
-                    <ellipse cx="85" cy="71" rx="4" ry="3" fill="#4A3525" />
-                    <circle cx="73" cy="67" r="3.5" fill="#4A3525" />
-                    <circle cx="97" cy="67" r="3.5" fill="#4A3525" />
-                    <ellipse cx="68" cy="73" rx="4" ry="2.5" fill="#FF8BA7" opacity="0.6" />
-                    <ellipse cx="102" cy="73" rx="4" ry="2.5" fill="#FF8BA7" opacity="0.6" />
-                    <ellipse cx="62" cy="98" rx="8" ry="6" fill="#D49A73" />
-                    <ellipse cx="108" cy="98" rx="8" ry="6" fill="#D49A73" />
-                    <rect x="70" y="90" width="30" height="26" rx="4" fill="#FF4B5C" />
-                    <rect x="82" y="90" width="6" height="26" fill="#FFD166" />
-                    <rect x="70" y="100" width="30" height="6" fill="#FFD166" />
-                    <path d="M 78 86 Q 85 80 85 90 Q 85 80 92 86 Q 85 92 78 86 Z" fill="#FFD166" />
-                </svg>
-            </div>
-
+            <img src="dudu-bubu.gif" alt="Bubu Dudu">
             <div class="btn-group">
                 <button onclick="showPage('page3')">YES! 🎉</button>
                 <button class="btn-no" onclick="showPage('page2')">NO 😜</button>
             </div>
         </div>
 
+        <!-- Page 2: Clicked NO (Beating) -->
         <div id="page2" class="hidden">
             <h2>Why did u click no!? 🥺</h2>
             <p>That wasn't an option! Try again!</p>
-            
-            <div class="svg-container">
-                <svg width="180" height="150" viewBox="0 0 180 150">
-                    <ellipse cx="65" cy="105" rx="32" ry="28" fill="#E8B088" />
-                    <circle cx="65" cy="75" r="28" fill="#E8B088" />
-                    <circle cx="43" cy="55" r="9" fill="#E8B088" />
-                    <circle cx="87" cy="55" r="9" fill="#E8B088" />
-                    <circle cx="55" cy="72" r="3" fill="#4A3525" />
-                    <circle cx="75" cy="72" r="3" fill="#4A3525" />
-                    <path d="M 50 64 L 60 68" stroke="#4A3525" stroke-width="2" stroke-linecap="round" />
-                    <path d="M 80 64 L 70 68" stroke="#4A3525" stroke-width="2" stroke-linecap="round" />
-                    <path d="M 60 82 Q 65 77 70 82" stroke="#4A3525" stroke-width="2" fill="none" />
-                    
-                    <g class="bubu-arm-beat">
-                        <ellipse cx="90" cy="80" rx="10" ry="6" fill="#D49A73" />
-                        <rect x="95" y="60" width="6" height="28" rx="2" fill="#8D5B4C" transform="rotate(-30 95 60)" />
-                        <rect x="100" y="48" width="32" height="18" rx="5" fill="#FF4B5C" transform="rotate(-30 100 48)" />
-                    </g>
-
-                    <g class="dudu-shake">
-                        <ellipse cx="140" cy="110" rx="30" ry="25" fill="#FFFFFF" stroke="#EAEAEA" />
-                        <circle cx="140" cy="82" r="26" fill="#FFFFFF" stroke="#EAEAEA" />
-                        <circle cx="120" cy="62" r="8" fill="#333333" />
-                        <circle cx="160" cy="62" r="8" fill="#333333" />
-                        <ellipse cx="130" cy="80" rx="6" ry="8" fill="#333333" transform="rotate(-15 130 80)" />
-                        <ellipse cx="150" cy="80" rx="6" ry="8" fill="#333333" transform="rotate(15 150 80)" />
-                        <circle cx="131" cy="79" r="2" fill="#FFF" />
-                        <circle cx="149" cy="79" r="2" fill="#FFF" />
-                        <path d="M 136 92 Q 140 88 144 92" stroke="#333" stroke-width="2" fill="none" />
-                        <text x="135" y="52" font-size="14" fill="#FFD166">💥💫</text>
-                    </g>
-                </svg>
-            </div>
-
+            <img src="hammer-bully.webp" alt="Hammer Beating">
+            <br><br>
             <button onclick="showPage('page1')">TRY AGAIN 🔄</button>
         </div>
 
+        <!-- Page 3: Clicked YES (Kiss/Question) -->
         <div id="page3" class="hidden">
             <h2>One Quick Question! 🤔</h2>
             <p>What makes you the absolute best?</p>
-            
-            <div class="svg-container">
-                <svg width="180" height="140" viewBox="0 0 180 140">
-                    <path class="kiss-heart-float" d="M 95 45 Q 98 40 101 45 Q 104 40 107 45 Q 107 50 101 54 Q 95 50 95 45 Z" fill="#FF4B5C" />
-                    
-                    <g class="bubu-kiss-lean">
-                        <ellipse cx="60" cy="95" rx="30" ry="25" fill="#E8B088" />
-                        <circle cx="65" cy="70" r="25" fill="#E8B088" />
-                        <circle cx="45" cy="52" r="8" fill="#E8B088" />
-                        <circle cx="82" cy="52" r="8" fill="#E8B088" />
-                        <path d="M 55 68 Q 59 72 63 68" stroke="#4A3525" stroke-width="2" fill="none" />
-                        <path d="M 68 68 Q 72 72 76 68" stroke="#4A3525" stroke-width="2" fill="none" />
-                        <ellipse cx="88" cy="73" rx="4" ry="2.5" fill="#D49A73" />
-                        <ellipse cx="55" cy="74" rx="4" ry="2.5" fill="#FF8BA7" opacity="0.6" />
-                    </g>
-
-                    <g>
-                        <ellipse cx="120" cy="95" rx="30" ry="25" fill="#FFFFFF" stroke="#EAEAEA" />
-                        <circle cx="115" cy="70" r="25" fill="#FFFFFF" stroke="#EAEAEA" />
-                        <circle cx="98" cy="52" r="8" fill="#333333" />
-                        <circle cx="132" cy="52" r="8" fill="#333333" />
-                        <path d="M 102 68 Q 106 63 110 68" stroke="#333" stroke-width="2" fill="none" />
-                        <path d="M 118 68 Q 122 63 126 68" stroke="#333" stroke-width="2" fill="none" />
-                        <ellipse cx="103" cy="74" rx="5" ry="3" fill="#FF8BA7" opacity="0.7" />
-                        <ellipse cx="124" cy="74" rx="5" ry="3" fill="#FF8BA7" opacity="0.7" />
-                    </g>
-                </svg>
-            </div>
-
-            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+            <img src="bubu-bubu-dudu.webp" alt="Bubu Kissing Dudu">
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
                 <button onclick="showPage('page4')">Your cute smile 😄</button>
                 <button onclick="showPage('page4')">Your funny jokes 🤣</button>
                 <button onclick="showPage('page4')">Everything about you ❤️</button>
             </div>
         </div>
 
+        <!-- Page 4: Wish & Hug -->
         <div id="page4" class="hidden">
             <h1>Happy Birthday! 🥳✨</h1>
             <p>Wishing you a day filled with love, laughter, and all your favorite sweet treats! Thank you for being such an awesome person. ❤️🎂</p>
-            
-            <div class="svg-container hug-sway">
-                <svg width="180" height="150" viewBox="0 0 180 150">
-                    <polygon points="90,15 80,45 100,45" fill="#FFD166" />
-                    <circle cx="90" cy="15" r="4" fill="#FF4B5C" />
-                    
-                    <ellipse cx="100" cy="100" rx="32" ry="26" fill="#FFFFFF" stroke="#EAEAEA" />
-                    <circle cx="100" cy="72" r="26" fill="#FFFFFF" stroke="#EAEAEA" />
-                    <circle cx="80" cy="52" r="8" fill="#333333" />
-                    <circle cx="120" cy="52" r="8" fill="#333333" />
-                    <path d="M 92 70 Q 96 65 100 70" stroke="#333" stroke-width="2" fill="none" />
-                    <path d="M 106 70 Q 110 65 114 70" stroke="#333" stroke-width="2" fill="none" />
-
-                    <ellipse cx="78" cy="100" rx="30" ry="25" fill="#E8B088" />
-                    <circle cx="75" cy="74" r="24" fill="#E8B088" />
-                    <circle cx="56" cy="56" r="8" fill="#E8B088" />
-                    <circle cx="92" cy="56" r="8" fill="#E8B088" />
-                    <path d="M 62 72 Q 66 67 70 72" stroke="#4A3525" stroke-width="2" fill="none" />
-                    <path d="M 76 72 Q 80 67 84 72" stroke="#4A3525" stroke-width="2" fill="none" />
-                    <ellipse cx="98" cy="88" rx="12" ry="6" fill="#D49A73" transform="rotate(-15 98 88)" />
-                    <ellipse cx="70" cy="88" rx="12" ry="6" fill="#FFFFFF" stroke="#EAEAEA" transform="rotate(15 70 88)" />
-
-                    <path class="heart-pulse" d="M 90 38 Q 92 34 95 38 Q 98 34 100 38 Q 100 42 95 45 Q 90 42 90 38 Z" fill="#FF4B5C" />
-                </svg>
-            </div>
-
+            <img src="bubu-bubu-dudu (1).webp" alt="Bubu Dudu Hug">
+            <br><br>
             <button onclick="showPage('page1')">Start Over 🔄</button>
         </div>
     </div>
